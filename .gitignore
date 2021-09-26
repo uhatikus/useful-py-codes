@@ -33,6 +33,7 @@ MANIFEST
 *.manifest
 *.spec
 *.idea
+.DS_Store
 
 # Installer logs
 pip-log.txt
