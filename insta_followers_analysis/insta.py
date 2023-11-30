@@ -21,11 +21,11 @@ def levenshtein_distance(s1, s2):
     return previous_row[-1]
 
 
-def find_all_similar_usernames(username_list, threshold=4):
+def find_all_similar_usernames(unfollowed, followed, threshold=4):
     similar_usernames_pairs = []
 
-    for i, username1 in enumerate(username_list):
-        for j, username2 in enumerate(username_list[i + 1 :]):
+    for i, username1 in enumerate(unfollowed):
+        for j, username2 in enumerate(followed):
             distance = levenshtein_distance(username1, username2)
             if distance <= threshold:
                 similar_usernames_pairs.append((username1, username2))
@@ -46,22 +46,32 @@ def get_followers(filepath):
     return usernames_set
 
 
-set1 = get_followers("followers_30_11_2023.json")
-set2 = get_followers("followers_30_11_2023.json")
+def analyse_followers():
+    set1 = get_followers("followers_30_11_2023.json")
+    set2 = get_followers("followers_30_11_2023 copy.json")
 
-# Calculate the difference
-unfollowed = set1 - set2
-followed = set2 - set1
+    # Calculate the difference
+    unfollowed = set1 - set2
+    followed = set2 - set1
+
+    if len(unfollowed) == 0 and len(followed) == 0:
+        print("No change in followers")
+        return
+
+    # Display the result
+    if len(unfollowed) != 0:
+        print(f"Unfollowed: {', '.join(unfollowed)}")
+        print()
+    if len(followed) != 0:
+        print(f"New followers: {', '.join(followed)}")
+        print()
+
+    if len(unfollowed) != 0 and len(followed) != 0:
+        similar_usernames_pairs = find_all_similar_usernames(unfollowed, followed)
+        print("Pairs of similar usernames:")
+        for pair in similar_usernames_pairs:
+            print(f"{pair[0]} & {pair[1]}")
 
 
-# Display the result
-print(f"Unfollowed: {', '.join(unfollowed)}")
-print()
-print(f"New followers: {', '.join(followed)}")
-print()
-
-all_changed_usernames = list(unfollowed.union(followed))
-similar_usernames_pairs = find_all_similar_usernames(all_changed_usernames)
-print("Pairs of similar usernames:")
-for pair in similar_usernames_pairs:
-    print(f"{pair[0]} & {pair[1]}")
+if __name__ == "__main__":
+    analyse_followers()
