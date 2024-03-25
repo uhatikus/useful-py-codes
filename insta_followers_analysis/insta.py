@@ -21,7 +21,7 @@ def levenshtein_distance(s1, s2):
     return previous_row[-1]
 
 
-def find_all_similar_usernames(unfollowed, followed, threshold=4):
+def find_all_similar_usernames(unfollowed, followed, threshold=6):
     similar_usernames_pairs = []
 
     for i, username1 in enumerate(unfollowed):
@@ -47,8 +47,8 @@ def get_followers(filepath):
 
 
 def analyse_followers():
-    set1 = get_followers("followers_30_11_2023.json")
-    set2 = get_followers("followers_30_11_2023 copy.json")
+    set1 = get_followers("followers_2024_03_04.json")
+    set2 = get_followers("followers_2024_03_10.json")
 
     # Calculate the difference
     unfollowed = set1 - set2
