@@ -1,0 +1,18 @@
+[project]
+name = "3b1b-animations"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Ukhatov Alexander",email = "alexander.ukhatov@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "manimgl (>=1.7.2,<2.0.0)",
+    "setuptools (>=80.7.1,<81.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
